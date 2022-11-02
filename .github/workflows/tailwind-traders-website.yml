@@ -20,12 +20,12 @@ jobs:
     steps:
     - name: checkout code
       uses: actions/checkout@v3
-    - name: npm install
-      run: npm install
-      working-directory: src/TailwindTraders.Ui.Website
-    - name: npm run build
-      run: npm run build
-      working-directory: src/TailwindTraders.Ui.Website
+    # - name: npm install
+    #   run: npm install
+    #   working-directory: src/TailwindTraders.Ui.Website
+    # - name: npm run build
+    #   run: npm run build
+    #   working-directory: src/TailwindTraders.Ui.Website
     - name: azure login
       uses: azure/login@v1.1
       with:
