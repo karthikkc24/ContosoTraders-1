@@ -93,7 +93,7 @@ class App extends Component {
             <DebugHeader />
             <Header quantity={quantity} />
             <Route exact path="/" component={Home} />
-
+            <Route exact path="/authcallback" component={Home} />
             <Route exact path="/meeting" component={Meeting} />
             <Route exact path="/list" component={List} />
             <Route exact path="/list/:code" component={List} />

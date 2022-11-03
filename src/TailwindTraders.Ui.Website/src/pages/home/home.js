@@ -7,6 +7,7 @@ import { ConfigService } from './../../services'
 const Home = ({ recommendedProducts, popularProducts, loggedIn }) => {
     const [customerSupportEnabled, setCustomerSupportEnabled] = useState(false);
     useEffect(() => {
+        console.log('Test')
         async function loadSettings() {
             await ConfigService.loadSettings();
             setCustomerSupportEnabled(ConfigService._customerSupportEnabled);

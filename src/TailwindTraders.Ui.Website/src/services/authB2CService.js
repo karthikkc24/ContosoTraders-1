@@ -8,7 +8,7 @@ export default class AuthB2CService {
                 clientId: ConfigService._B2cClientId,
                 authority: ConfigService._B2cAuthority,
                 validateAuthority: false,
-                redirectUri: `${window.location.origin}`
+                redirectUri: `${window.location.origin}/authcallback`
             }
         }
 
@@ -22,8 +22,9 @@ export default class AuthB2CService {
     }
 
     login = async () => {
-        await this.msalAgent.loginPopup();
+        await this.msalAgent.loginRedirect()//loginPopup();
         const user = this.msalAgent.getAccount();
+        localStorage.setItem('userInfo',user)
         return (user) ? user : null;
     }
 

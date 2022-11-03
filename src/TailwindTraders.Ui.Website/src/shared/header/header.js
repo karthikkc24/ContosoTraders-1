@@ -17,7 +17,7 @@ import { ReactComponent as Close } from '../../assets/images/icon-close.svg';
 import { ReactComponent as Hamburger } from '../../assets/images/icon-menu.svg';
 import { ReactComponent as Cart } from '../../assets/images/icon-cart.svg';
 
-import { clickAction } from "../../actions/actions";
+import { clickAction, submitAction } from "../../actions/actions";
 
 const Login = LoginContainer(LoginComponent);
 
@@ -37,7 +37,7 @@ class Header extends Component {
     async componentDidMount() {
         this.loadSettings();
 
-        if (this.props.userInfo.token) {
+        if (this.props.userInfo && this.props.userInfo.token) {
             const profileData = await UserService.getProfileData(this.props.userInfo.token);
             this.setState({ ...profileData });
         }
@@ -86,17 +86,27 @@ class Header extends Component {
     onClickLogout = () => {
         localStorage.clear();
 
-        if (this.props.userInfo.isB2c) {
+        // if (this.props.userInfo.isB2c) {
             this.authService.logout();
-        }
+        // }
 
         this.props.clickAction();
         this.props.history.push('/');
     }
 
+    onClickLogin = () => {
+
+        // if (this.props.userInfo.isB2c) {
+            let user = this.authService.login();
+        // }
+
+        this.props.submitAction(user);
+        this.props.history.push('/');
+    }
+
     render() {
         const { profile } = this.state;
-        const { loggedIn } = this.props.userInfo;
+        const { loggedIn } = this.props.userInfo ? this.props.userInfo : false;
         return (
             <NamespacesConsumer>
                 {t => (
@@ -142,7 +152,7 @@ class Header extends Component {
                             {/* <Search /> */}
                             {loggedIn && <Link to="/profile"><UserPortrait {...profile} /></Link>}
                             {loggedIn ? <div className="secondary-nav__login" onClick={this.onClickLogout}>{t('shared.header.logout')}</div>
-                                : <div className="secondary-nav__login" onClick={this.toggleModalClass}>{t('shared.header.login')}</div>}
+                                : <div className="secondary-nav__login" onClick={this.onClickLogin}>{t('shared.header.login')}</div>}
                             {loggedIn && <Link className="secondary-nav__cart" to="/shopping-cart">
                                 <Cart />
                                 <div className="secondary-nav__cart-number">
@@ -163,6 +173,6 @@ class Header extends Component {
     }
 }
 
-const mapStateToProps = state => state.login;
+const mapStateToProps = state =>{ return { login: state.login, userInfo: state.userInfo }};
 
-export default connect(mapStateToProps, { clickAction })(withRouter(Header));
+export default connect(mapStateToProps, { clickAction, submitAction })(withRouter(Header));

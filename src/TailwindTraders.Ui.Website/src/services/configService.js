@@ -10,7 +10,7 @@ const APIUrl = 'https://tailwind-traders-products987654.azurewebsites.net/v1';
 const APIUrlShoppingCart = 'https://tailwind-traders-carts987654.azurewebsites.net/v1';
 const UseB2C = process.env.REACT_APP_USEB2C;
 const B2cAuthority = process.env.REACT_APP_B2CAUTHORITY;
-const B2cClientId = process.env.REACT_APP_B2CCLIENTID;
+const B2cClientId = '9db8d08a-d9b6-4e4c-8b46-a3898f985735';//process.env.REACT_APP_B2CCLIENTID;
 const B2cScopes = process.env.REACT_APP_B2CSCOPES;
 
 const _HeadersConfig = (token, devspaces = undefined) => {
