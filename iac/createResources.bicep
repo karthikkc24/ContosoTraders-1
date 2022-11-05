@@ -89,6 +89,7 @@ var acrCartsApiRepositoryName = 'tailwindtradersapicarts'
 // api management/gateway
 var apimName  = 'tailwind-traders-apim${suffix}'
 
+
 // tags
 var resourceTags = {
   Product: 'tailwind-traders'
@@ -1000,7 +1001,7 @@ resource apiname_WebApp_tailwind_traders_product 'Microsoft.ApiManagement/servic
   name: 'WebApp_tailwind-traders-product'
   properties: {
     description: 'tailwind-traders-product'
-    url: 'https://${productsapiappsvc.name}.azurewebsites.net'
+    url: 'https://tailwind-traders-product.azurewebsites.net'
     protocol: 'http'
     resourceId: productsapiappsvc.id
       }
@@ -1023,7 +1024,7 @@ resource apiname_master 'Microsoft.ApiManagement/service/subscriptions@2021-12-0
   parent: apiname_resource
   name: 'master'
   properties: {
-    scope: '${apiname_resource.id}/'
+    scope   : 'Service'
     displayName: 'Built-in all-access subscription'
     state: 'active'
     allowTracing: true
@@ -1149,7 +1150,7 @@ resource apiname_tailwindtraders_api_products_get_v1_products_id 'Microsoft.ApiM
   }
 
   dependsOn: [
-
+apiname_tailwindtraders_api_products_schema
     apiname_resource
   ]
 }
@@ -1297,7 +1298,7 @@ resource apiname_tailwindtraders_api_carts_get_v1_shoppingcart 'Microsoft.ApiMan
     ]
   }
   dependsOn: [
-
+apiname_tailwindtraders_api_carts_schema
     apiname_resource
   ]
 }
@@ -1392,7 +1393,7 @@ resource apiname_tailwindtraders_api_products_post_v1_login 'Microsoft.ApiManage
     ]
   }
   dependsOn: [
-    apiname_tailwindtraders_api_products_6363e64fd000db2410b014b6
+    apiname_tailwindtraders_api_products_schema
     apiname_resource
   ]
 }
@@ -1454,6 +1455,7 @@ resource apiname_tailwindtraders_api_carts_post_v1_shoppingcart 'Microsoft.ApiMa
     ]
   }
   dependsOn: [
+    apiname_tailwindtraders_api_products_schema
 
     apiname_resource
   ]
@@ -1487,7 +1489,7 @@ resource apiname_tailwindtraders_api_products_post_v1_stocks_id_consume 'Microso
     ]
   }
   dependsOn: [
-    apiname_tailwindtraders_api_products_6363e64fd000db2410b014b6
+apiname_tailwindtraders_api_products_schema
         apiname_resource
   ]
 }
@@ -1549,7 +1551,7 @@ resource apiname_tailwindtraders_api_carts_put_v1_shoppingcart_product 'Microsof
     ]
   }
   dependsOn: [
-
+    apiname_tailwindtraders_api_carts_schema
     apiname_resource
   ]
 }
@@ -1568,7 +1570,7 @@ resource apiname_tailwindtraders_api_carts_policy 'Microsoft.ApiManagement/servi
 }
 
 
-resource apiname_tailwindtraders_api_carts_63592ac6e24e9e18ec5a7ae6 'Microsoft.ApiManagement/service/apis/schemas@2021-12-01-preview' = {
+resource apiname_tailwindtraders_api_carts_schema 'Microsoft.ApiManagement/service/apis/schemas@2021-12-01-preview' = {
   parent: apiname_tailwindtraders_api_carts
   name: '63592ac6e24e9e18ec5a7ae6'
   properties: {
@@ -1585,7 +1587,7 @@ resource apiname_tailwindtraders_api_carts_63592ac6e24e9e18ec5a7ae6 'Microsoft.A
   ]
 }
 
-resource apiname_tailwindtraders_api_products_6363e64fd000db2410b014b6 'Microsoft.ApiManagement/service/apis/schemas@2021-12-01-preview' = {
+resource apiname_tailwindtraders_api_products_schema 'Microsoft.ApiManagement/service/apis/schemas@2021-12-01-preview' = {
   parent: apiname_tailwindtraders_api_products
   name: '6363e64fd000db2410b014b6'
   properties: {
