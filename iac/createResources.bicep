@@ -1003,7 +1003,7 @@ resource apiname_WebApp_tailwind_traders_product 'Microsoft.ApiManagement/servic
     description: 'tailwind-traders-productsfnnw'
     url: 'https://tailwind-traders-product.azurewebsites.net'
     protocol: 'http'
-    resourceId: productsapiappsvc.id
+    resourceId: 'https://management.azure.com$(productsapiappsvc.id)'
       }
 }
 
