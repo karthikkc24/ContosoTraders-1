@@ -1000,7 +1000,7 @@ resource apiname_WebApp_tailwind_traders_product 'Microsoft.ApiManagement/servic
   parent: apiname_resource
   name: 'WebApp_tailwind-traders-product'
   properties: {
-    description: 'tailwind-traders-product'
+    description: 'tailwind-traders-productsfnnw'
     url: 'https://tailwind-traders-product.azurewebsites.net'
     protocol: 'http'
     resourceId: productsapiappsvc.id
@@ -1020,16 +1020,6 @@ resource apiname_tailwind_traders 'Microsoft.ApiManagement/service/products@2021
 }
 
 
-resource apiname_master 'Microsoft.ApiManagement/service/subscriptions@2021-12-01-preview' = {
-  parent: apiname_resource
-  name: 'master'
-  properties: {
-    scope   : 'Service'
-    displayName: 'Built-in all-access subscription'
-    state: 'active'
-    allowTracing: true
-  }
-}
 
 resource apiname_tailwindtraders_api_carts_delete_v1_shoppingcart_product 'Microsoft.ApiManagement/service/apis/operations@2021-12-01-preview' = {
   parent: apiname_tailwindtraders_api_carts
@@ -1616,16 +1606,6 @@ resource Mrediscache_for_API 'Microsoft.ApiManagement/service/properties@2019-01
 }
 
 
-resource apiname_eastus 'Microsoft.ApiManagement/service/caches@2021-12-01-preview' = {
-  parent: apiname_resource
-  name: 'eastus'
-  properties: {
-    useFromLocation: 'eastus'
-    description: 'tailwind-traders-redis.redis.cache.windows.net'
-    connectionString: '{{cache_refrence}}'
-    resourceId: rediscache.id
-  }
-}
 
 
 
