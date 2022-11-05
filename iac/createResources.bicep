@@ -86,6 +86,9 @@ var redisCacheName = 'tailwind-traders-cache${suffix}'
 var acrName = 'tailwindtradersacr${suffix}'
 var acrCartsApiRepositoryName = 'tailwindtradersapicarts'
 
+// api management/gateway
+var apimName  = 'tailwind-traders-apim${suffix}'
+
 // tags
 var resourceTags = {
   Product: 'tailwind-traders'
@@ -903,13 +906,9 @@ resource acr 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' = {
 }
 
 //////////////////////////////////////////////////////////////////////////////// APIM config
-targetScope = 'resourceGroup'
-
-var apiname  = 'tailwind-traders-apim-1'
-var resourceLocation  = resourceGroup().location
 
 resource apiname_resource 'Microsoft.ApiManagement/service@2021-12-01-preview' = {
-  name: apiname
+  name: apimName
   location: resourceLocation
   sku: {
     name: 'Consumption'
@@ -922,7 +921,7 @@ resource apiname_resource 'Microsoft.ApiManagement/service@2021-12-01-preview' =
     hostnameConfigurations: [
       {
         type: 'Proxy'
-        hostName: '${apiname}.azure-api.net'
+        hostName: '${apimName}.azure-api.net'
         negotiateClientCertificate: false
         defaultSslBinding: true
         certificateSource: 'BuiltIn'
@@ -936,6 +935,8 @@ resource apiname_resource 'Microsoft.ApiManagement/service@2021-12-01-preview' =
     publicNetworkAccess: 'Enabled'
   }
 }
+
+
 
 resource apiname_tailwindtraders_api_carts 'Microsoft.ApiManagement/service/apis@2021-12-01-preview' = {
   parent: apiname_resource
@@ -999,14 +1000,11 @@ resource apiname_WebApp_tailwind_traders_product 'Microsoft.ApiManagement/servic
   name: 'WebApp_tailwind-traders-product'
   properties: {
     description: 'tailwind-traders-product'
-    url: 'https://tailwind-traders-product.azurewebsites.net'
+    url: 'https://${productsapiappsvc.name}.azurewebsites.net'
     protocol: 'http'
-    resourceId: 'https://management.azure.com/subscriptions/34ed4867-af79-4e1f-af39-cdd66ef9fa17/resourceGroups/fabmedicalapp-782161/providers/Microsoft.Web/sites/tailwind-traders-productscloudn'
-  }
+    resourceId: productsapiappsvc.id
+      }
 }
-
-
-
 
 
 resource apiname_tailwind_traders 'Microsoft.ApiManagement/service/products@2021-12-01-preview' = {
@@ -1021,8 +1019,16 @@ resource apiname_tailwind_traders 'Microsoft.ApiManagement/service/products@2021
 }
 
 
-
-
+resource apiname_master 'Microsoft.ApiManagement/service/subscriptions@2021-12-01-preview' = {
+  parent: apiname_resource
+  name: 'master'
+  properties: {
+    scope: '${apiname_resource.id}/'
+    displayName: 'Built-in all-access subscription'
+    state: 'active'
+    allowTracing: true
+  }
+}
 
 resource apiname_tailwindtraders_api_carts_delete_v1_shoppingcart_product 'Microsoft.ApiManagement/service/apis/operations@2021-12-01-preview' = {
   parent: apiname_tailwindtraders_api_carts
@@ -1597,3 +1603,28 @@ resource apiname_tailwindtraders_api_products_6363e64fd000db2410b014b6 'Microsof
 }
 
 
+resource Mrediscache_for_API 'Microsoft.ApiManagement/service/properties@2019-01-01' = {
+  parent: apiname_resource
+  name: 'cache_refrence'
+  properties: {
+    displayName: 'cache-eastus-connection-63496860bf115c1ab0530bd7'
+    value: '${rediscache}.redis.cache.windows.net:6380,password=${rediscache.listKeys().primaryKey}'
+    secret: true
+  }
+}
+
+
+resource apiname_eastus 'Microsoft.ApiManagement/service/caches@2021-12-01-preview' = {
+  parent: apiname_resource
+  name: 'eastus'
+  properties: {
+    useFromLocation: 'eastus'
+    description: 'tailwind-traders-redis.redis.cache.windows.net'
+    connectionString: '{{cache_refrence}}'
+    resourceId: rediscache.id
+  }
+}
+
+
+
+ 
