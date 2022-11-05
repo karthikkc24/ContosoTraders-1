@@ -1609,4 +1609,15 @@ resource Mrediscache_for_API 'Microsoft.ApiManagement/service/properties@2019-01
 
 
 
+resource apiname_eastus 'Microsoft.ApiManagement/service/caches@2021-12-01-preview' = {
+  parent: apiname_resource
+  name: 'eastus'
+  properties: {
+    useFromLocation: 'eastus'
+    description: 'tailwind-traders-redis.redis.cache.windows.net'
+    connectionString: '{{cache_refrence}}'
+    resourceId: 'https://management.azure.com$(rediscache.id)'
+  }
+}
+
  
