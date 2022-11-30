@@ -18,9 +18,9 @@ For this we use the service called **Computer Vision**, an Azure AI that analyze
 Azure's Computer Vision service gives you access to advanced algorithms that process images and return information based on the visual features you're interested in such as **Optical Character Recognition** (OCR),
 Image Analysis, Face Service and Spatial Analysis.
 
-## Task 1 - Introduction to [https://contosotraders.com](https://test.contosotraders.com/) 
+## Task 1 - Introduction to https://test.contosotraders.com/
 
-In this task,  you will start with launching the application [https://contosotraders.com](https://test.contosotraders.com/) and will go through the overview of app with focus on need for AI/Visual Search 
+In this task,  you will start with launching the application https://test.contosotraders.com/ and will go through the overview of app with focus on need for AI/Visual Search 
 
 ## Task 2 - Search for product through Image
 
