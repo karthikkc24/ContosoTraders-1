@@ -26,6 +26,6 @@ In this task,  you will start with launching the application https://test.contos
 
 In this task, you will use the image search option in the application to find the device from the product catalog.
 
-## Task 3 - Overview of AI service used in the App and the Insights
+## Task 3 - Overview of AI service used in the Application and the Insights
 
 In this task, you will learn on the Azure AI service used in the application and also the high level idea of how the Cognitive services works
