@@ -39,5 +39,27 @@ You need to access the application and play with the https://test.contosotraders
    
    ![image](https://user-images.githubusercontent.com/48020356/204917533-db8beed3-29f5-4c34-9c4f-d35ffe8b906e.png)
 
+# Task 3 : Overview of AI service used in the Application and the Insights
 
+## overview
 
+The **cloud-based Computer Vision API** provides developers with access to advanced algorithms for processing images and returning information. By uploading an image or specifying an image URL, Microsoft Computer Vision algorithms can analyze visual content in different ways based on inputs and user choices.
+
+The **Image Analysis service** extracts many visual features from images, such as objects, faces, adult content, and auto-generated text descriptions, it provides  you with AI algorithms for processing images and returning information on their visual features. 
+
+We can use **Vision Studio** for understanding the process of Image Analysis in cognitive service using and Computer Vsion features
+
+## Instructions
+
+**Vision Studio** is a set of UI-based tools that lets you explore, build, and integrate features from Azure Computer Vision.
+
+Vision Studio provides you with a platform to try several service features and sample their returned data in a quick, straightforward manner. Using Studio, you can start experimenting with the services and learning what they offer without needing to write any code. Then, use the available client libraries and REST APIs to get started embedding these services into your own applications.
+
+1. Sign in to Vision Studio from https://portal.vision.cognitive.azure.com/ with your Azure subscription and If it's your first time logging in, you'll see a popup window appear that prompts you to **Sign in to Azure** and then choose or create a Vision resource. You have the option to skip this step and do it later also.
+   
+   ![image](https://user-images.githubusercontent.com/48020356/204954594-90143c0a-65c1-4155-9136-bb93ee57985a.png)
+  
+2. Select **Choose resource**, then select an existing resource within your subscription.
+
+   
+   
