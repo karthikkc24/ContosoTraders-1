@@ -93,6 +93,10 @@ var uiStgAccName = '${prefix}ui${environment}'
 // storage account (new website)
 var ui2StgAccName = '${prefix}ui2${environment}'
 
+// app service plan (new website)
+var ui2ApiAppSvcPlanName = '${prefixHyphenated}-ui2${environment}'
+var ui2ApiAppSvcName = '${prefixHyphenated}-ui2${environment}'
+
 // storage account (image classifier)
 var imageClassifierStgAccName = '${prefix}ic${environment}'
 var imageClassifierWebsiteUploadsContainerName = 'website-uploads'
@@ -686,6 +690,51 @@ resource productimagesstgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = {
 // main website / ui
 // new website / ui
 //
+
+// app service plan (linux)
+resource uiappsvcplan 'Microsoft.Web/serverfarms@2022-03-01' = {
+  name: ui2ApiAppSvcPlanName
+  location: resourceLocation
+  tags: resourceTags
+  sku: {
+    name: 'B1'
+  }
+  properties: {
+    reserved: true
+  }
+  kind: 'linux'
+}
+
+// app service
+resource uiappsvc 'Microsoft.Web/sites@2022-03-01' = {
+  name: ui2ApiAppSvcName
+  location: resourceLocation
+  tags: resourceTags
+  identity: {
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${userassignedmiforkvaccess.id}': {
+      }
+    }
+  }
+  properties: {
+    clientAffinityEnabled: false
+    httpsOnly: true
+    serverFarmId: uiappsvcplan.id
+    siteConfig: {
+      // node 16 LTS
+      linuxFxVersion: 'NODE|16-lts'
+      alwaysOn: true
+      appCommandLine: 'pm2 serve /home/site/wwwroot --no-daemon --spa'
+      appSettings: [
+        {
+          name: 'SCM_DO_BUILD_DURING_DEPLOYMENT'
+          value: 'FALSE'
+        }
+      ]
+    }
+  }
+}
 
 // storage account (main website)
 resource uistgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = {
