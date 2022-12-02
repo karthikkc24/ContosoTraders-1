@@ -18,7 +18,7 @@ env:
   PRODUCT_IMAGES_STORAGE_ACCOUNT_NAME: contosotradersimg
   PRODUCT_LIST_CONTAINER_NAME: product-list
   PRODUCTS_CDN_ENDPOINT_NAME: contoso-traders-images
-  RESOURCE_GROUP_NAME: contoso-traders-rg
+  RESOURCE_GROUP_NAME: ContosoTraders-807928
   STORAGE_ACCOUNT_NAME: contosotradersimg
   USER_ASSIGNED_MANAGED_IDENTITY_NAME: contoso-traders-mi-kv-access
 
@@ -32,17 +32,6 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.SERVICEPRINCIPAL }}
-      # The first step is to create the resource group: `contoso-traders-rg`.
-      # The below step can also be manually executed as follows:
-      # az deployment sub create --location {LOCATION} --template-file .\createResourceGroup.bicep
-      # Note: You can specify any location for `{LOCATION}`. It's the region where the deployment metadata will be stored, and not
-      # where the resource groups will be deployed.
-      - name: create resource group
-        uses: Azure/arm-deploy@v1
-        with:
-          scope: subscription
-          region: ${{ env.SUB_DEPLOYMENT_REGION }}
-          template: ./iac/createResourceGroup.bicep
       # Next step is to deploy the Azure resources to the resource group `contoso-traders-rg` created above. The deployed resources
       # include storage accounts, function apps, app services cosmos db, and service bus etc.
       # The below step can also be manually executed as follows:
